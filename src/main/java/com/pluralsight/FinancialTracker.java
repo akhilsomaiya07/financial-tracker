@@ -71,7 +71,7 @@ public class FinancialTracker {
         // After reading all the transactions, the file should be closed.
         // If any errors occur, an appropriate error message should be displayed.
         // Initialize an ArrayList to store transactions
-        ArrayList<Transaction> transactions = new ArrayList<>();
+        //ArrayList<Transaction> transactions = new ArrayList<>();
 
         try {
 
@@ -82,17 +82,17 @@ public class FinancialTracker {
             while ((line = reader.readLine()) != null) {
                 // Split the line into its components using a comma as the delimiter
                 String[] parts = line.split("\\|");
-                if (parts.length == 5) {
+
                     LocalDate date = parse(parts[0], DATE_FORMATTER);
                     LocalTime time = LocalTime.parse(parts[1], TIME_FORMATTER);
-                    String Vendors = parts[2];
-                    String type = parts[3];
+                    String Vendors = parts[3];
+                    String Description = parts[2];
                     double amount = Double.parseDouble(parts[4]);
 
                     // Create a Transaction object and add it to the ArrayList
-                    Transaction transaction = new Transaction(date, time, Vendors, type, amount);
+                    Transaction transaction = new Transaction(date, time, Description, Vendors, amount);
                     transactions.add(transaction);
-                }
+
             }
 
             // Close the file after reading
@@ -139,6 +139,7 @@ public class FinancialTracker {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_NAME, true))) {
             writer.write(transaction);
             writer.newLine();
+            writer.close();
             System.out.println("Deposit added successfully.");
         } catch (IOException e) {
             e.printStackTrace();
@@ -155,12 +156,16 @@ public class FinancialTracker {
         System.out.println("Enter payment details:");
 
         // Prompt the user for the date
-        System.out.print("Date (YYYY-MM-DD): ");
-        String date = scanner.next();
+        System.out.println("Enter the date (yyyy-MM-dd): ");
+        String dateInput = scanner.nextLine();
+        LocalDate date = parse(dateInput, DATE_FORMATTER);
 
-        // Prompt the user for the time
-        System.out.println("Invalid date and time format. Please use yyyy-MM-dd HH:mm:ss.");
-        String time = scanner.next();
+        System.out.println("Enter the time (HH:mm:ss): ");
+        String timeInput = scanner.nextLine();
+        LocalTime time = LocalTime.parse(timeInput, TIME_FORMATTER);
+
+        System.out.println("Enter the description: ");
+        String description = scanner.nextLine();
 
         // Prompt the user for the vendor
         System.out.print("Vendor: ");
@@ -169,7 +174,7 @@ public class FinancialTracker {
         // Prompt the user for the amount
         System.out.print("Amount: ");
         double amount = scanner.nextDouble();
-        amount = -1.0;
+
 
         while (amount < 0) {
             System.out.println("Enter the amount (positive number):");
@@ -183,6 +188,21 @@ public class FinancialTracker {
             } catch (NumberFormatException e) {
                 System.out.println("Invalid input. Please enter a valid amount.");
             }
+        }
+        amount = amount * -1.0;
+        Transaction payment = new Transaction(date, time, description, vendor, amount);
+        transactions.add(payment);
+
+        String transaction = String.format("%s|%s|%s|%s|%.2f", date.format(DATE_FORMATTER), time.format(TIME_FORMATTER), description, vendor, amount);
+
+
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_NAME, true))) {
+            writer.write(transaction);
+            writer.newLine();
+            writer.close();
+            System.out.println("Payment added successfully.");
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
@@ -226,16 +246,16 @@ public class FinancialTracker {
         // This method should display a table of all transactions in the `transactions` ArrayList.
         // The table should have columns for date, time, vendor, type, and amount.
         System.out.println("Ledger:");
-        System.out.println("Date | Time | Vendor | Type | Amount");
-        System.out.println("---------------------------------------------------------------");
+        System.out.println("Date | Time | Vendor | Description | Amount");
+        System.out.println("---------------------------------------------");
 
         for (Transaction transaction: transactions){
             System.out.println(transaction);
-            LocalDate date = transaction.getDate();
-            LocalTime time = transaction.getTime();
-            String vendor = transaction.getVendor();
-            LocalTime type = transaction.getTime(); // Assuming you have a method to get the type
-            double amount = transaction.getAmount();
+//            LocalDate date = transaction.getDate();
+//            LocalTime time = transaction.getTime();
+//            String vendor = transaction.getVendor();
+//            String description = transaction.getDescription();
+//            double amount = transaction.getAmount();
         }
     }
 
@@ -243,25 +263,14 @@ public class FinancialTracker {
         // This method should display a table of all deposits in the `transactions` ArrayList.
         // The table should have columns for date, time, vendor, and amount.
         // Define the table headers
-        System.out.println("Date | Time | Vendor | Amount");
-        System.out.println("--------------------------------------------");
 
         // Loop through the transactions and print each one in the table format
         for (Transaction transaction : transactions) {
-            // Assuming Transaction class has appropriate getters for date, time, vendor, and amount.
-            LocalDate date = transaction.getDate();
-            LocalTime time = transaction.getTime();
-            String vendor = transaction.getVendor();
-            double amount = transaction.getAmount();
+            if (transaction.getAmount() > 0 ) {
+                // Assuming Transaction class has appropriate getters for date, time, vendor, and amount.
+                System.out.println(transaction);
 
-            // Format the output in a table-like structure
-            String formattedDate = String.format("%-10s", date);
-            String formattedTime = String.format("%-9s", time);
-            String formattedVendor = String.format("%-20s", vendor);
-            String formattedAmount = String.format("%.2f", amount);
-
-            // Print the formatted transaction line
-            System.out.println(formattedDate + " | " + formattedTime + " | " + formattedVendor + " | " + formattedAmount);
+            }
         }
     }
 
@@ -269,20 +278,8 @@ public class FinancialTracker {
             // This method should display a table of all payments in the `transactions` ArrayList.
             // The table should have columns for date, time, vendor, and amount.
             for (Transaction transaction : transactions) {
-                if (transaction.getTime().equals("Payment")) { // Assuming you have a method to get the transaction type
-                    LocalDate date = transaction.getDate();
-                    LocalTime time = transaction.getTime();
-                    String vendor = transaction.getVendor();
-                    double amount = transaction.getAmount();
-
-                    // Format the output in a table-like structure
-                    String formattedDate = String.format("%-10s", date);
-                    String formattedTime = String.format("%-9s", time);
-                    String formattedVendor = String.format("%-20s", vendor);
-                    String formattedAmount = String.format("%.2f", amount);
-
-                    // Print the formatted payment line
-                    System.out.println(formattedDate + " | " + formattedTime + " | " + formattedVendor + " | " + formattedAmount);
+                if (transaction.getAmount() < 0 ) {
+                    System.out.println(transaction);
                 }
             }
         }
@@ -333,7 +330,9 @@ public class FinancialTracker {
                 }
             }
         }
+private static void monthtodate () {
 
+}
 
         private static void filterTransactionsByDate (LocalDate startDate, LocalDate endDate){
             // This method filters the transactions by date and prints a report to the console.
