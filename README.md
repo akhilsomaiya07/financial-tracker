@@ -28,3 +28,7 @@
 
 ## This is my Private Static Void previousmonth and monthtodate
 ![previousmont monthtodate](https://github.com/akhilsomaiya07/financial-tracker/assets/56009275/b49ff23d-6740-4ec8-8ca9-8eae87b50155)
+
+
+## This is my Private Static Void previousyear
+![previousyear](https://github.com/akhilsomaiya07/financial-tracker/assets/56009275/7fcc6380-82cc-40eb-adc7-a931623507f0)
