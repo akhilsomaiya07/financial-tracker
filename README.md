@@ -7,3 +7,6 @@
 
 ## This is my Private Static Void add deposit 
 ![adddeposit](https://github.com/akhilsomaiya07/financial-tracker/assets/56009275/54da2926-8600-4b5f-a57a-8acb3daba3af)
+
+## This is my Private Static Void add payment
+![addpayment](https://github.com/akhilsomaiya07/financial-tracker/assets/56009275/2d55893d-5e44-492e-88e1-3e0b89bda57c)
