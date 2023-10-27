@@ -35,3 +35,7 @@
 
 ## This is my Private Static Void filtertransactionbydate
 ![filtertransactionbydate](https://github.com/akhilsomaiya07/financial-tracker/assets/56009275/2625f0cc-52ea-41c7-9882-4fc0316c9af4)
+
+## This is my Private Static Void filtertransactionbyvendor
+![filtertransactionbyvendor](https://github.com/akhilsomaiya07/financial-tracker/assets/56009275/24dc5942-3469-499a-aeb4-36ecab132e4e)
+
