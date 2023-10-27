@@ -19,3 +19,9 @@
 
 ## This is my Private Static Void display deposit and payments
 ![displaydeposit payments](https://github.com/akhilsomaiya07/financial-tracker/assets/56009275/31a8e35f-80e8-4fe5-9e31-37cae935a0b1)
+
+## This is my Private Static Void reports menu
+![reportsmenu](https://github.com/akhilsomaiya07/financial-tracker/assets/56009275/64d7d498-979c-45ca-9490-e5723913561c)
+
+## This is my Private Static Void searchByVendor and yeartodate
+![searchbyvendor yeartodate](https://github.com/akhilsomaiya07/financial-tracker/assets/56009275/c294a94b-c587-4199-b9cd-2e5f83e829a2)
