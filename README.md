@@ -16,3 +16,6 @@
 
 ## This is my Private Static Void display ledger
 ![displayledger](https://github.com/akhilsomaiya07/financial-tracker/assets/56009275/e62845df-8bb4-4246-82e9-b2ed8ad92abf)
+
+## This is my Private Static Void display deposit and payments
+![displaydeposit payments](https://github.com/akhilsomaiya07/financial-tracker/assets/56009275/31a8e35f-80e8-4fe5-9e31-37cae935a0b1)
